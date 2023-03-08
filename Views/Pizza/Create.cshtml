@@ -1,0 +1,117 @@
+﻿@model Pizza_project.Models.Pizza
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    .navbar-expand-sm {
+        background-color: #9E4D3C;
+    }
+</style>
+
+<body>
+<h1>Order Specifications</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                    PizzaType:
+                    </div>
+                    <div>
+                <select class="form-control" id="PizzaType" name="PizzaType" required>
+                    <option></option>
+                    <option id="veg">Veg</option>
+                    <option id="nonveg">Non Veg</option>
+                </select>
+            </div>
+            <div class="form-group">
+                    PizzaName:
+            </div>
+            <div>
+                <select class="form-control" id="PizzaName" name="PizzaName" required>
+                    <option></option>
+                        <option value="veg" class="veg">Double Cheese Margherita</option>
+                        <option value="veg" class="veg">Peppy Paneer</option>
+                        <option value="veg" class="veg">Cheese and Corn</option>
+                        <option value="veg" class="veg">Tandoori Paneer</option>
+                        <option value="nonveg" class="nonveg">Chicken Dominator</option>
+                        <option value="nonveg" class="nonveg">Pepper Barbeque Chicken</option>
+                        <option value="nonveg" class="nonveg">Chicken Pepproni</option>
+                        <option value="nonveg" class="nonveg">Chicken Sausage</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Speciality:
+            </div>
+            <div>
+                <select class="form-control" id="Speciality" name="Speciality" required>
+                    <option></option>
+                    <option class="NY">New York-Style</option>
+                    <option class="CLF">California Style</option>
+                    <option class="ITL">Italian Style</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Crust:
+            </div>
+            <div>
+                <select class="form-control" id="Crust" name="Crust" required>
+                    <option> </option>
+                    <option>Thick</option>
+                    <option>Thin</option>
+                </select>
+            </div>
+                <div class="form-group">
+                    Number of Slices:
+                    <div>
+                        <select class="form-control" id="Slices" name="Slices" required>
+                            <option> </option>
+                            <option>Small(4)</option>
+                            <option>Medium(6)</option>
+                            <option>Large(8)</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Price:</label>
+                <input asp-for="Price" id="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $('.veg').hide()
+        $('.nonveg').hide()
+       
+            $("#PizzaType").change(function () {
+                var type = $("#PizzaType option:selected").text();
+                var VegPrice=150;
+                var NonVegPrice = 200;
+                if(type == "Veg")
+                {
+                    $('.nonveg').hide()
+                    $('.veg').show();
+                    $('#Price').val(VegPrice);
+                }
+                else{
+                    $('.veg').hide()
+                    $('.nonveg').show();
+                    $('#Price').val(NonVegPrice);
+                }
+            });
+
+    </script>
+}
